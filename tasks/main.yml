@@ -1,0 +1,77 @@
+---
+# Local package requirements
+- name: Ensure distro packages are present for virtualenv construction
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ monasca_rsyslog_packages }}"
+  become: True
+  when: monasca_rsyslog_packages_install | bool
+
+- name: Check whether the virtualenv directory exists
+  stat:
+    path: "{{ monasca_rsyslog_venv | dirname }}"
+    get_md5: False
+    get_checksum: False
+    mime: False
+  when: monasca_rsyslog_venv != None
+  register: monasca_rsyslog_venv_stat
+
+- name: Ensure the virtualenv directory exists
+  file:
+    path: "{{ monasca_rsyslog_venv | dirname }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user_gid }}"
+  become: True
+  when:
+    - monasca_rsyslog_venv != None
+    - not monasca_rsyslog_venv_stat.stat.exists
+
+- name: Ensure the latest version of pip is installed
+  pip:
+    name: pip
+    state: latest
+    virtualenv: "{{ monasca_rsyslog_venv or omit }}"
+
+- name: Deploy the Monasca-rsyslog plugin from git repo
+  pip:
+    name: git+https://github.com/stackhpc/monasca-rsyslog#egg=monasca-rsyslog
+    virtualenv: "{{ monasca_rsyslog_venv or omit }}"
+
+- name: Ensure the Monasca config directory exists
+  file:
+    path: "{{ monasca_rsyslog_config | dirname }}"
+    state: directory
+    mode: 0750
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user_gid }}"
+  become: True
+
+- name: Write the Monasca-rsyslog config file
+  template:
+    src: monasca-rsyslog.conf.j2
+    dest: "{{ monasca_rsyslog_config }}"
+    mode: 0600
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user_gid }}"
+  notify:
+    - Restart rsyslogd
+
+- name: Deploy rsyslogd template
+  template:
+    src: 50-monasca-rsyslog-template.conf.j2 
+    dest: /etc/rsyslog.d/50-monasca-rsyslog-template.conf
+    mode: 0644
+  become: True
+  notify:
+    - Restart rsyslogd
+
+- name: Deploy rsyslogd template
+  template:
+    src: 60-monasca-rsyslog-omprog.conf.j2
+    dest: /etc/rsyslog.d/60-monasca-rsyslog-omprog.conf
+    mode: 0644
+  become: True
+  notify:
+    - Restart rsyslogd

@@ -1,0 +1,21 @@
+---
+# Path to virtualenv in which to install monasca-rsyslog and dependencies.
+monasca_rsyslog_venv: "/usr/libexec/monasca-rsyslog"
+
+# Install any missing package requirements in the host OS.
+monasca_rsyslog_packages_install: True
+
+# Monasca log API endpoint URL.
+monasca_rsyslog_api_endpoint: 
+
+# Monasca log API endpoint and authentication credentials.
+monasca_rsyslog_api_auth:
+
+# List of package dependencies.
+monasca_rsyslog_packages:
+  - gcc
+  - libffi-devel
+  - openssl-devel
+  - python-devel
+  - python2-pip
+  - python-virtualenv

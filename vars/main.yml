@@ -1,0 +1,3 @@
+---
+
+monasca_rsyslog_config: "/etc/monasca/monasca-rsyslog.conf"
