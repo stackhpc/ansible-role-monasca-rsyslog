@@ -37,35 +37,27 @@ The default is a suitable list of package names for an EPEL-enabled CentOS distr
 Dependencies
 ------------
 
-*WRITEME*
+This role installs the `monasca-rsyslog` output driver developed by Steve Simpson from
+https://github.com/stackhpc/monasca-rsyslog
 
 
 Example Playbook
 ----------------
 
-*WRITEME*
-
-The following playbook generates a guest image and uploads it to OpenStack:
+The following playbook connects an rsyslog deployment with an output plugin for Monasca:
 
     ---
-    - name: Generate guest image and upload
-      hosts: openstack
+    - name: Deploy driver for Monasca-rsyslog
+      hosts: all
       roles:
-        - role: stackhpc.os-image
-          os_images_auth:
-            auth_url:     "{{ lookup('env','OS_AUTH_URL') }}"
-            username:     "{{ lookup('env','OS_USERNAME') }}"
-            password:     "{{ lookup('env','OS_PASSWORD') }}"
-            project_name: "{{ lookup('env','OS_TENANT_NAME') }}"
-          os_images_list:
-          - name: FedoraCore
-            elements:
-              - fedora
-              - selinux-permissive
-              - alaska-extras
-            env:
-              DIB_ALASKA_DELETE_REPO: "y"
-              DIB_ALASKA_PKGLIST: "pam-python pam-keystone"
+	- role: stackhpc.monasca-rsyslog
+	  monasca_rsyslog_api_auth:
+	    auth_url: "http://openstack-keystone:5000"
+	    project: "monasca"
+	    username: "monasca-agent"
+	    password: "XXXX"
+	  monasca_rsyslog_api_endpoint: "http://monasca-log-api:5607/v3.0/"
+	  monasca_rsyslog_venv: "/usr/libexec/monasca-rsyslog"
 
 Author Information
 ------------------
