@@ -23,6 +23,11 @@ auth_url =  {{monasca_rsyslog_api_auth.auth_url}}
 username = {{monasca_rsyslog_api_auth.username}}
 password = {{monasca_rsyslog_api_auth.password}}
 project_name = {{monasca_rsyslog_api_auth.project}}
+project_domain_name = {{ monasca_rsyslog_api_auth.project_domain_name|default("Default") }}
+region_name: {{ monasca_rsyslog_api_auth.region_name|default("RegionOne") }}
+user_domain_name: {{ monasca_rsyslog_api_auth.user_domain_name|default("Default") }}
+service_type: {{ monasca_rsyslog_api_auth.service_type|default("monitoring") }}
+endpoint_type: {{ monasca_rsyslog_api_auth.endpoint_type|default("public") }}
 
 # Additional configuration parameters. Currently it is required that
 # the monasca-log-api endpoint is specified here.

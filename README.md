@@ -26,6 +26,13 @@ example, a dict of the form:
 * `username`: OpenStack username.
 * `password`: OpenStack password.
 
+The dict *may* also include the following, optional variables:
+* `project_domain_name`: OpenStack project domain name. Defaults to "Default".
+* `region_name`: OpenStack region name. Defaults to "RegionOne".
+* `user_domain_name`: OpenStack user domain name. Defaults to "Default".
+* `service_type`: OpenStack monitoring service type. Defaults to "monitoring".
+* `endpoint_type`: OpenStack monitoring endpoint type. Defaults to "public".
+
 `monasca_rsyslog_packages_install`: Flag to define whether package dependencies
 for creating a python virtualenv should be installed in the host OS.
 defaults to `True`.
