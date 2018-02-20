@@ -19,3 +19,7 @@ monasca_rsyslog_packages:
   - python-devel
   - python2-pip
   - python-virtualenv
+
+# Enable listening on TCP/UDP network ports and relaying to Monasca
+monasca_rsyslog_network: False
+monasca_rsyslog_network_addr: "0.0.0.0"

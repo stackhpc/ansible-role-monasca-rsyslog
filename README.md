@@ -34,6 +34,12 @@ defaults to `True`.
 support, and enable the building of some dependencies within a virtualenv by pip.
 The default is a suitable list of package names for an EPEL-enabled CentOS distribution.
 
+`monasca_rsyslog_network`: Boolean to enable rsyslog configuration to
+listen for syslog across the network.  Default is `False`.
+
+`monasca_rsyslog_network_addr`: IP address to bind to when listening
+for syslog across the network.  Default is `0.0.0.0` (all interfaces).
+
 Dependencies
 ------------
 

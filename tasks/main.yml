@@ -10,7 +10,7 @@
 
 - name: Check whether the virtualenv directory exists
   stat:
-    path: "{{ monasca_rsyslog_venv | dirname }}"
+    path: "{{ monasca_rsyslog_venv }}"
     get_md5: False
     get_checksum: False
     mime: False
@@ -75,3 +75,15 @@
   become: True
   notify:
     - Restart rsyslogd
+
+- name: Configure rsyslogd to listen on TCP/UDP
+  template:
+    src: 10-network-relay.conf.j2
+    dest: /etc/rsyslog.d/10-network-relay.conf
+    mode: 0644
+  become: True
+  when:
+    - monasca_rsyslog_network | bool
+  notify:
+    - Restart rsyslogd
+

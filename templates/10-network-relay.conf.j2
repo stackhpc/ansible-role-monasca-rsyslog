@@ -1,0 +1,7 @@
+# Provides UDP syslog reception
+module(load="imudp")
+input(type="imudp" port="514" address="{{monasca_rsyslog_network_addr}}")
+
+# Provides TCP syslog reception
+module(load="imtcp")
+input(type="imtcp" port="514" address="{{monasca_rsyslog_network_addr}}")
