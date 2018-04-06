@@ -1,12 +1,20 @@
 ---
 # Local package requirements
-- name: Ensure distro packages are present for virtualenv construction
+- name: Ensure distro packages are present for virtualenv construction (RHEL)
   package:
     name: "{{ item }}"
     state: present
-  with_items: "{{ monasca_rsyslog_packages }}"
+  with_items: "{{ monasca_rsyslog_rhel_packages }}"
   become: True
-  when: monasca_rsyslog_packages_install | bool
+  when: monasca_rsyslog_packages_install | bool and ansible_os_family == 'RedHat'
+
+- name: Ensure distro packages are present for virtualenv construction (Debian)
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ monasca_rsyslog_debian_packages }}"
+  become: True
+  when: monasca_rsyslog_packages_install | bool and ansible_os_family == 'Debian'
 
 - name: Check whether the virtualenv directory exists
   stat:

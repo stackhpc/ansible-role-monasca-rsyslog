@@ -12,10 +12,18 @@ monasca_rsyslog_api_endpoint:
 monasca_rsyslog_api_auth:
 
 # List of package dependencies.
-monasca_rsyslog_packages:
+monasca_rsyslog_rhel_packages:
   - gcc
   - libffi-devel
   - openssl-devel
   - python-devel
   - python2-pip
+  - python-virtualenv
+
+monasca_rsyslog_debian_packages:
+  - gcc
+  - libffi-dev
+  - libssl-dev
+  - python2.7-dev
+  - python-pip
   - python-virtualenv

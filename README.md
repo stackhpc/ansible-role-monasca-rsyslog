@@ -37,9 +37,13 @@ The dict *may* also include the following, optional variables:
 for creating a python virtualenv should be installed in the host OS.
 defaults to `True`.
 
-`monasca_rsyslog_packages`: List of dependency package names to enable virtualenv
-support, and enable the building of some dependencies within a virtualenv by pip.
-The default is a suitable list of package names for an EPEL-enabled CentOS distribution.
+`monasca_rsyslog_rhel_packages`: List of dependency package names to enable virtualenv
+support, and enable the building of some dependencies within a virtualenv by pip suitable
+for an EPEL-enabled CentOS distribution.
+
+`monasca_rsyslog_debian_packages`: List of dependency package names to enable virtualenv
+support, and enable the building of some dependencies within a virtualenv by pip suitable
+for a Debian distribution.
 
 Dependencies
 ------------
