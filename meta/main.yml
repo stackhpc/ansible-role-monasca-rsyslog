@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: monasca-rsyslog
   author: Stig Telfer, Steve Simpson
   description: >
     Role to connect a local rsyslog service with Monasca's log API.
