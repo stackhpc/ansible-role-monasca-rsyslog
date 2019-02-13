@@ -47,22 +47,38 @@
     name: git+https://github.com/stackhpc/monasca-rsyslog#egg=monasca-rsyslog
     virtualenv: "{{ monasca_rsyslog_venv or omit }}"
 
+- name: Ensure {{ monasca_group }} group exists
+  group:
+    name: "{{ monasca_group }}"
+    state: present
+
+- name: Ensure {{ monasca_user }} user exists
+  user:
+    name: "{{ monasca_user }}"
+    group: "{{ monasca_group }}"
+
+- name: Add syslog user to monasca group for rsyslog-monasca plugin
+  user:
+    name: "syslog"
+    groups: "{{ monasca_group }}"
+    append: yes
+
 - name: Ensure the Monasca config directory exists
   file:
     path: "{{ monasca_rsyslog_config | dirname }}"
     state: directory
     mode: 0750
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user_gid }}"
+    owner: "{{ monasca_user }}"
+    group: "{{ monasca_group }}"
   become: True
 
 - name: Write the Monasca-rsyslog config file
   template:
     src: monasca-rsyslog.conf.j2
     dest: "{{ monasca_rsyslog_config }}"
-    mode: 0600
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user_gid }}"
+    mode: 0640
+    owner: "{{ monasca_user }}"
+    group: "{{ monasca_group }}"
   notify:
     - Restart rsyslogd
 
