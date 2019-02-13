@@ -27,3 +27,6 @@ monasca_rsyslog_debian_packages:
   - python2.7-dev
   - python-pip
   - python-virtualenv
+
+monasca_user: "monasca"
+monasca_group: "monasca"
