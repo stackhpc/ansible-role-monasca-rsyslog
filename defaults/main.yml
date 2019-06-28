@@ -11,6 +11,15 @@ monasca_rsyslog_api_endpoint:
 # Monasca log API endpoint and authentication credentials.
 monasca_rsyslog_api_auth:
 
+# Default verbosity level
+monasca_rsyslog_api_verbosity: 0
+
+# Maximum number of logs to batch together
+monasca_rsyslog_api_max_batch_size: 100
+
+# Minimum time to wait between positing logs to logging api
+monasca_rsyslog_api_min_poll_delay: 10
+
 # List of package dependencies.
 monasca_rsyslog_rhel_packages:
   - gcc
