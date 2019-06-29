@@ -2,6 +2,9 @@
 # Path to virtualenv in which to install monasca-rsyslog and dependencies.
 monasca_rsyslog_venv: "/usr/libexec/monasca-rsyslog"
 
+# Default branch to use
+monasca_rsyslog_branch: master
+
 # Install any missing package requirements in the host OS.
 monasca_rsyslog_packages_install: True
 
