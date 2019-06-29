@@ -19,10 +19,10 @@
 # keystoneauth1 is supported here.
 [auth]
 auth_type = password
-auth_url =  {{monasca_rsyslog_api_auth.auth_url}}
-username = {{monasca_rsyslog_api_auth.username}}
-password = {{monasca_rsyslog_api_auth.password}}
-project_name = {{monasca_rsyslog_api_auth.project}}
+auth_url =  {{ monasca_rsyslog_api_auth.auth_url }}
+username = {{ monasca_rsyslog_api_auth.username }}
+password = {{ monasca_rsyslog_api_auth.password }}
+project_name = {{ monasca_rsyslog_api_auth.project }}
 project_domain_name = {{ monasca_rsyslog_api_auth.project_domain_name|default("Default") }}
 region_name: {{ monasca_rsyslog_api_auth.region_name|default("RegionOne") }}
 user_domain_name: {{ monasca_rsyslog_api_auth.user_domain_name|default("Default") }}
@@ -32,8 +32,8 @@ endpoint_type: {{ monasca_rsyslog_api_auth.endpoint_type|default("public") }}
 # Additional configuration parameters. Currently it is required that
 # the monasca-log-api endpoint is specified here.
 [api]
-{% if monasca_rsyslog_api_endpoint %}url = {{monasca_rsyslog_api_endpoint}}{% endif %}
-max_batch_size = {{monasca_rsyslog_api_max_batch_size}}
-min_poll_delay = {{monasca_rsyslog_api_min_poll_delay}}
-verbosity = {{monasca_rsyslog_api_verbosity}}
+{% if monasca_rsyslog_api_endpoint %}url = {{ monasca_rsyslog_api_endpoint }}{% endif %}
+max_batch_size = {{ monasca_rsyslog_api_max_batch_size }}
+min_poll_delay = {{ monasca_rsyslog_api_min_poll_delay }}
+verbosity = {{ monasca_rsyslog_api_verbosity }}
 
