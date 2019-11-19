@@ -45,6 +45,10 @@ for an EPEL-enabled CentOS distribution.
 support, and enable the building of some dependencies within a virtualenv by pip suitable
 for a Debian distribution.
 
+`monasca_rsyslog_custom_template_folder`: Folder, relative to the playbook which runs
+this role containing custom rsyslog templates. For example, this may be used to ingest
+system logs which aren't managed by rsyslog.
+
 Dependencies
 ------------
 
@@ -66,8 +70,7 @@ The following playbook connects an rsyslog deployment with an output plugin for 
 	    auth_url: "http://openstack-keystone:5000"
 	    project: "monasca"
 	    username: "monasca-agent"
-	    password: "XXXX"
-	  monasca_rsyslog_api_endpoint: "http://monasca-log-api:5607/v3.0/"
+	    password: "{{ vault_encypted_monasca_agent_password }}"
 	  monasca_rsyslog_venv: "/usr/libexec/monasca-rsyslog"
 
 Author Information

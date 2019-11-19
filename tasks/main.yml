@@ -83,20 +83,32 @@
   notify:
     - Restart rsyslogd
 
-- name: Deploy rsyslogd template
+- name: Deploy Monasca rsyslogd templates
   template:
-    src: 50-monasca-rsyslog-template.conf.j2
-    dest: /etc/rsyslog.d/50-monasca-rsyslog-template.conf
+    src: "{{ item }}.j2"
+    dest: "/etc/rsyslog.d/{{ item }}"
     mode: 0644
   become: True
+  with_items:
+    - 50-monasca-rsyslog-template.conf
+    - 60-monasca-rsyslog-omprog.conf
   notify:
     - Restart rsyslogd
 
-- name: Deploy rsyslogd template
+- name: Find custom rsyslogd templates
+  find:
+    paths: "{{ playbook_dir }}/{{ monasca_rsyslog_custom_template_folder }}"
+    patterns: '*.conf'
+  delegate_to: localhost
+  run_once: True
+  register: monasca_rsyslog_custom_templates
+
+- name: Deploy custom templates
   template:
-    src: 60-monasca-rsyslog-omprog.conf.j2
-    dest: /etc/rsyslog.d/60-monasca-rsyslog-omprog.conf
+    src: "{{ item.path }}"
+    dest: "/etc/rsyslog.d/{{ item.path | basename }}"
     mode: 0644
   become: True
+  with_items: "{{  monasca_rsyslog_custom_templates.files }}"
   notify:
     - Restart rsyslogd

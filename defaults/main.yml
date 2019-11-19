@@ -23,6 +23,11 @@ monasca_rsyslog_api_max_batch_size: 100
 # Minimum time to wait between positing logs to logging api
 monasca_rsyslog_api_min_poll_delay: 10
 
+# Folder, relative to the playbook which runs this role containing
+# custom rsyslog templates. For example, this may be used to ingest
+# system logs which aren't managed by rsyslog.
+monasca_rsyslog_custom_template_folder: monasca_rsyslog_custom_templates
+
 # List of package dependencies.
 monasca_rsyslog_rhel_packages:
   - gcc
