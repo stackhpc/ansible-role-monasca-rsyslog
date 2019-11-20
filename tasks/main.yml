@@ -46,6 +46,10 @@
   pip:
     name: git+https://github.com/stackhpc/monasca-rsyslog@{{ monasca_rsyslog_branch }}
     virtualenv: "{{ monasca_rsyslog_venv or omit }}"
+  notify:
+    - Restart rsyslogd
+  register: result
+  changed_when: "'installed' in result.stdout"
 
 - name: Ensure {{ monasca_group }} group exists
   group:
